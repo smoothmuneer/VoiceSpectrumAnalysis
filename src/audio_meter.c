@@ -8,12 +8,16 @@
 #endif
 
 #include "lvgl/lvgl.h"
+#include "lvgl/src/widgets/meter/lv_meter.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 #define BUFFER_SIZE 1024
-#define SAMPLE_RATE 44100
+static unsigned int SAMPLE_RATE = 44100;
 #define CHANNELS    1
+
+#define LV_USE_WIDGETS 1
+#define LV_USE_METER 1
 
 static lv_obj_t *meter;
 static snd_pcm_t *capture_handle;
@@ -35,12 +39,17 @@ static void setup_audio() {
     snd_pcm_hw_params(capture_handle, hw_params);
 }
 
+/* Ensure LVGL meter types are known if headers didn't define them */
+typedef struct _lv_meter_scale lv_meter_scale_t;
+typedef struct _lv_meter_indicator lv_meter_indicator_t;
+
 static void setup_display() {
     lv_init();
     // Note: You need to implement your display driver initialization here
     
     // Create a meter
     meter = lv_meter_create(lv_scr_act());
+
     lv_obj_center(meter);
     lv_obj_set_size(meter, 200, 200);
 
