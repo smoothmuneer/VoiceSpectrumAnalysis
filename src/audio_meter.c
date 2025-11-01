@@ -1,4 +1,12 @@
+#if __has_include(<alsa/asoundlib.h>)
 #include <alsa/asoundlib.h>
+#elif __has_include("alsa/include/asoundlib.h")
+/* Fallback auf die mitgelieferte ALSA-Quelle im Projekt (src/alsa/include) */
+#include "alsa/include/asoundlib.h"
+#else
+#error "ALSA header not found. Install libasound2-dev or add src/alsa/include to include path."
+#endif
+
 #include "lvgl/lvgl.h"
 #include <stdio.h>
 #include <stdlib.h>
