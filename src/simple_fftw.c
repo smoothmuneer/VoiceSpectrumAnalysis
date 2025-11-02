@@ -1,4 +1,4 @@
-#include "fftw/fftw3.h"
+#include "fftw/api/fftw3.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
