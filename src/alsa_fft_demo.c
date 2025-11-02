@@ -2,8 +2,7 @@
  * Uses headers in src/alsa/include and src/fftw (adjust -I flags accordingly).
  * Captures a short buffer (FRAME_COUNT frames) and prints the magnitude of the first bins.
  */
-#include "alsa/include/asoundlib-head.h"
-#include "alsa/include/asoundlib-tail.h"
+#include "alsa/include/asoundlibh"
 #include "fftw/api/fftw3.h"
 #include <stdio.h>
 #include <stdlib.h>
