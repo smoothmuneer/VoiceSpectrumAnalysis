@@ -10,7 +10,8 @@
 #define LV_CONF_INCLUDE_SIMPLE
 #endif
 
-/* Falls nicht in lv_conf.h gesetzt, sicherstellen, dass Meter-Widget aktiviert ist */
+/* Falls deine lv_conf.h Meter nicht aktiviert hat, kannst du es hier erzwingen.
+   Besser: setze LV_USE_METER in deiner src/lv_conf.h */
 #ifndef LV_USE_WIDGETS
 #define LV_USE_WIDGETS 1
 #endif
@@ -18,11 +19,19 @@
 #define LV_USE_METER 1
 #endif
 
-#if __has_include(<SDL2/SDL.h>) && defined(LV_USE_SDL)
+/* lv_conf.h explizit einbinden, damit LVGL weiß welche Widgets aktiviert sind */
+#include "lv_conf.h"
+
+/* SDL nur verwenden, wenn lv_conf.h LV_USE_SDL aktiviert und die SDL-Header vorhanden sind */
+#if defined(LV_USE_SDL) && (LV_USE_SDL) && __has_include(<SDL2/SDL.h>)
 #include <SDL2/SDL.h>
 #endif
 
 #include "lvgl/lvgl.h"
+/* Direktes Einbinden des Meter-Widget-Headers stellt sicher, dass die
+   Typen (lv_meter_scale_t, lv_meter_indicator_t, ...) verfügbar sind. */
+#include "lvgl/src/widgets/meter/lv_meter.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -45,7 +54,6 @@ static lv_disp_t *disp;
 
 static void sdl_flush_cb(lv_disp_drv_t *drv, const lv_area_t *area, lv_color_t *color_p)
 {
-    /* Wir aktualisieren ganze Textur - einfacher Ansatz für Demo */
     (void)drv;
     SDL_UpdateTexture(sdl_texture, NULL, buf1, DISP_HOR_RES * sizeof(lv_color_t));
     SDL_RenderClear(sdl_renderer);
