@@ -1,2 +1,9 @@
 .vscode
 .idea
+cmake-build-debug/
+build/
+*.o
+*.exe
+*.out
+alsa/  # keep if you want sources, but avoid using local headers; remove if not needed
+fftw/  # keep if building from source - otherwise optional
