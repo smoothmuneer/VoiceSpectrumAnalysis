@@ -4,4 +4,4 @@ project(PSE C)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(PSE
-        src/test.c)
+        src/simple_fftw.c)
