@@ -3,7 +3,7 @@
 #include <math.h>
 
 #ifdef USE_FFTW
-#include <fftw3.h>
+#include <fftw/api/fftw3.h>
 #endif
 
 /* If FFTW is not available, use a tiny internal real->half DFT */
