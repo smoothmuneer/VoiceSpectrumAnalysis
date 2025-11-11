@@ -4,8 +4,6 @@ project(PSE C)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_EXTENSIONS OFF)
 find_package(PkgConfig REQUIRED)
-
-# ALSA (system)
 pkg_check_modules(ALSA REQUIRED alsa)
 
 # FFTW (optional)
