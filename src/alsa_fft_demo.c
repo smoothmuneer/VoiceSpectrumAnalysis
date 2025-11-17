@@ -1,9 +1,12 @@
+#define _POSIX_C_SOURCE 200809L
+
 /* ALSA capture + FFT demo (optional FFTW). Uses system ALSA headers. */
 #include <alsa/asoundlib.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <math.h>
+#include <alloca.h>
 
 #ifdef USE_FFTW
 #include <fftw3.h>
@@ -12,6 +15,7 @@
 #define SAMPLE_RATE 44100
 #define CHANNELS 1
 #define FRAME_COUNT 1024
+#define M_PI 3.14159265358979323846
 
 #ifndef USE_FFTW
 static void real_dft_half(int N, const double *in, double *out_re, double *out_im)
