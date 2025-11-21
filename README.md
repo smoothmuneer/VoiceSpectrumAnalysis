@@ -21,3 +21,9 @@ gcc -std=c11 -O2 -Wall alsa_fft_sample.c -o alsa_fft_sample -lm
 4. Execute the the compiled file with the audio.raw as a parameter on the cli:
 
 ./alsa_fft_sample audio.raw
+
+
+
+You can also play the audio with the command:
+
+aplay -f S16_LE -r 44100 -c 2 audio.raw
