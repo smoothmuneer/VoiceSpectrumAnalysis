@@ -1,0 +1,59 @@
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/gpio/gpio.h>
+#include "imx8mp-pinfunc.h"
+
+/ {
+    compatible = "phytec,imx8mp-phyboard-pollux-rdk";
+};
+
+&{/} {
+    inmp441: inmp441-sound {
+        compatible = "simple-audio-card";
+        simple-audio-card,name = "INMP441";
+        simple-audio-card,format = "i2s";
+        simple-audio-card,bitclock-master = <&dailink_master>;
+        simple-audio-card,frame-master = <&dailink_master>;
+
+        simple-audio-card,cpu {
+            sound-dai = <&sai2>;
+        };
+
+        dailink_master: simple-audio-card,codec {
+            sound-dai = <&inmp441_codec>;
+        };
+        
+    };
+
+    inmp441_codec: inmp441-codec {
+        compatible = "invensense,ics43432";
+        #sound-dai-cells = <0>;
+        status = "okay";
+    };
+};
+
+
+&sai2 {
+    #sound-dai-cells = <0>;
+    status = "okay";
+
+    pinctrl-names = "default";
+    pinctrl-0 = <&pinctrl_sai2_inmp441>;
+
+    fsl,sai-synchronous-rx;
+    fsl,sai-mclk-direction-output;
+};
+
+
+&iomuxc {
+    pinctrl_sai2_inmp441: sai2-inmp441grp {
+        fsl,pins = <
+            /* I2S signals: WS, SCK, SD from mic */
+            MX8MP_IOMUXC_SAI2_MCLK__AUDIOMIX_SAI2_MCLK       0xd6
+            MX8MP_IOMUXC_SAI2_TXFS__AUDIOMIX_SAI2_TX_SYNC    0xd6
+            MX8MP_IOMUXC_SAI2_TXC__AUDIOMIX_SAI2_TX_BCLK     0xd6
+            MX8MP_IOMUXC_SAI2_RXD0__AUDIOMIX_SAI2_RX_DATA00  0xd6
+        >;
+    };
+};
