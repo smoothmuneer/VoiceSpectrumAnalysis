@@ -1,0 +1,12 @@
+[Unit]
+Description=Jannik Spectral Analyzer Service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/jannik-spectral
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
